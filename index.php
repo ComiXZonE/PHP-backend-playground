@@ -89,6 +89,30 @@ function make_y_axis() {
         .ticks(10)
 }
 
+var d = {
+  <?php
+
+     $con=mysqli_connect("localhost","root","","db");
+      // Check connection
+     if (mysqli_connect_errno())
+      {
+        echo "Failed to connect to MySQL: " . mysqli_connect_error();
+      }
+
+     $result = mysqli_query($con,"SELECT date, close FROM graph");
+
+     while($row = mysqli_fetch_array($result)) {
+       // $array_push($array,$row['date'], $row['close']);
+      echo json_encode($row['date']);
+      echo json_encode($row['close']);
+      }
+
+     mysqli_close($con); 
+   ?>
+}
+
+
+
 d3.csv("brojevi1.csv", function(error, data) {
   if (error) throw error;
   data.forEach(function(d) {
