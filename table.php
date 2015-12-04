@@ -1,41 +1,27 @@
 <?php
-
-$row = 1;
-if (($handle = fopen("brojevi1.csv", "r")) !== FALSE) {
-    
-    echo '<table border="1">';
-    
-    while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-        $num = count($data);
-        if ($row == 1) {
-            echo '<thead><tr>';
-        }else{
-            echo '<tr>';
-        }
-        
-        for ($c=0; $c < $num; $c++) {
-            //echo $data[$c] . "<br />\n";
-            if(empty($data[$c])) {
-               $value = "&nbsp;";
-            }else{
-               $value = $data[$c];
-            }
-            if ($row == 1) {
-                echo '<th>'.$value.'</th>';
-            }else{
-                echo '<td>'.$value.'</td>';
-            }
-        }
-        
-        if ($row == 1) {
-            echo '</tr></thead><tbody>';
-        }else{
-            echo '</tr>';
-        }
-        $row++;
-    }
-    
-    echo '</tbody></table>';
-    fclose($handle);
+$con=mysqli_connect("localhost","root","","db");
+// Check connection
+if (mysqli_connect_errno())
+{
+echo "Failed to connect to MySQL: " . mysqli_connect_error();
 }
-?>
+
+$result = mysqli_query($con,"SELECT date, close FROM graph");
+
+echo "<table border='1'>
+<tr>
+<th>Date</th>
+<th>Close</th>
+</tr>";
+
+ while($row = mysqli_fetch_array($result))
+ {
+ echo "<tr>";
+  echo "<td>" . $row['date'] . "</td>";
+  echo "<td>" . $row['close'] . "</td>";
+  echo "</tr>";
+ }
+echo "</table>";
+
+mysqli_close($con);
+?> 
