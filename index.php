@@ -91,7 +91,8 @@ function make_y_axis() {
 
 var d = {
   <?php
-
+     $i = 0;
+     $array;
      $con=mysqli_connect("localhost","root","","db");
       // Check connection
      if (mysqli_connect_errno())
@@ -102,11 +103,11 @@ var d = {
      $result = mysqli_query($con,"SELECT date, close FROM graph");
 
      while($row = mysqli_fetch_array($result)) {
-       // $array_push($array,$row['date'], $row['close']);
-      echo json_encode($row['date']);
-      echo json_encode($row['close']);
+      $array[$i]["date"] = $row['date'];
+      $array[$i]["close"] = $row['close'];
+      $i++;
       }
-
+      echo json_encode($array);
      mysqli_close($con); 
    ?>
 }
