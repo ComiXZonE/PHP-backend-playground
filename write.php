@@ -8,19 +8,36 @@ close: <input type="text" name="closeIn"><br>
 <input type="submit">
 </form>
 
-<?php 
-  $a = $_POST["dateIn"]; 
-  $b = $_POST["closeIn"]; 
-  $file = 'brojevi1.csv';
-  // Open the file to get existing content
-  $current = file_get_contents($file);
-  // Append a new person to the file
-  $current .= "\n";
-  $current .= $a;
-  $current .= ",";
-  $current .= $b;
-  // Write the contents back to the file
-  file_put_contents($file, $current);
+
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "db";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+	echo "asdasdasdasda";
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// prepare and bind
+$stmt = $conn->prepare("INSERT INTO graph (data, close) VALUES (FROM_UNIXTIME(?), ?)");
+$stmt->bind_param("if", $firstname, $lastname);
+
+// set parameters and execute
+$firstname = $_POST["dateIn"];
+$lastname = $_POST["closeIn"];
+
+$stmt->execute();
+
+
+echo "asdasdasdasda";
+$stmt->close();
+$conn->close();
 ?>
 
 </body>
