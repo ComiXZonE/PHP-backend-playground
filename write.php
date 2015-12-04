@@ -1,27 +1,28 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE HTML>
+<html> 
 <body>
 
-date: <input type="text" id="input_date">
-close: <input type="text" id="input_close">
+<form action="" method="post">
+date: <input type="text" name="dateIn"><br>
+close: <input type="text" name="closeIn"><br>
+<input type="submit">
+</form>
 
-<button onclick="myFunction()">Submit</button>
+<?php 
+  $a = $_POST["dateIn"]; 
+  $b = $_POST["closeIn"]; 
+  $file = 'brojevi1.csv';
+  // Open the file to get existing content
+  $current = file_get_contents($file);
+  // Append a new person to the file
+  $current .= "\n";
+  $current .= $a;
+  $current .= ",";
+  $current .= $b;
+  // Write the contents back to the file
+  file_put_contents($file, $current);
+?>
 
-<p id="demo"></p>
-
-<script>
-function myFunction() {
-    var d = document.getElementById("input_date").value;
-    var c = document.getElementById("input_close").value;
-    <?php
-      $f = fopen("brojevi1.csv", "w");
-      $s = $d + "," + $c;
-      echo $s;
-      fwrite($f, $s); 
-      fclose($f);
-    ?>
-}
-
-</script>
 </body>
 </html>
+
