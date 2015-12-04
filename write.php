@@ -2,20 +2,26 @@
 <html>
 <body>
 
-date: <input type="text" name="input_date">
-close: <input type="text" name="input_close">
+date: <input type="text" id="input_date">
+close: <input type="text" id="input_close">
 
 <button onclick="myFunction()">Submit</button>
 
 <p id="demo"></p>
 
-<?php
+<script>
 function myFunction() {
     var d = document.getElementById("input_date").value;
     var c = document.getElementById("input_close").value;
-    document.getElementById("demo").innerHTML = x;
+    <?php
+      $f = fopen("brojevi1.csv", "w");
+      $s = $d + "," + $c;
+      echo $s;
+      fwrite($f, $s); 
+      fclose($f);
+    ?>
 }
-?>
 
+</script>
 </body>
 </html>
