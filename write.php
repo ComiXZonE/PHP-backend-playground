@@ -25,17 +25,16 @@ if ($conn->connect_error) {
 }
 
 // prepare and bind
-$stmt = $conn->prepare("INSERT INTO graph (data, close) VALUES (FROM_UNIXTIME(?), ?)");
-$stmt->bind_param("if", $firstname, $lastname);
+$stmt = $conn->prepare("INSERT INTO graph (date, close) VALUES (?, ?)");
+$stmt->bind_param("sd", $firstname, $lastname);
 
 // set parameters and execute
 $firstname = $_POST["dateIn"];
 $lastname = $_POST["closeIn"];
-
 $stmt->execute();
 
 
-echo "asdasdasdasda";
+
 $stmt->close();
 $conn->close();
 ?>
